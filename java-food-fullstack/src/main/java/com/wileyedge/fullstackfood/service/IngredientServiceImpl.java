@@ -13,8 +13,8 @@ public class IngredientServiceImpl implements IngredientServiceInterface {
     @Autowired
     IngredientDao IngredientDao;
 
-    public IngredientServiceImpl(IngredientDao IngredientDao) {
-        this.IngredientDao = IngredientDao;
+    public IngredientServiceImpl(IngredientDao ingredientDao) {
+        this.IngredientDao = ingredientDao;
     }
 
 
@@ -29,12 +29,12 @@ public class IngredientServiceImpl implements IngredientServiceInterface {
     }
 
     @Override
-    public Ingredient addNewIngredient(Ingredient Ingredient) {
+    public Ingredient addNewIngredient(Ingredient ingredient) {
         return null;
     }
 
     @Override
-    public Ingredient updateIngredientData(int id, Ingredient Ingredient) {
+    public Ingredient updateIngredientData(int id, Ingredient ingredient) {
         return null;
     }
 

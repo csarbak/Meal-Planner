@@ -44,12 +44,12 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     @Override
-    public void addIngredientToMeal(int IngredientId, int courseId) {
+    public void addIngredientToMeal(int IngredientId, int mealId) {
 
     }
 
     @Override
-    public void deleteIngredientFromMeal(int IngredientId, int courseId) {
+    public void deleteIngredientFromMeal(int IngredientId, int mealId) {
 
     }
 }

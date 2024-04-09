@@ -42,7 +42,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public void deleteAllIngredientsFromMeal(int MealId) {
+    public void deleteAllIngredientsFromMeal(int mealId) {
 
     }
 }

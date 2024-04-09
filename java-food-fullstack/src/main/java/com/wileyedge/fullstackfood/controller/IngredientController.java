@@ -3,7 +3,7 @@ package com.wileyedge.fullstackfood.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Ingredient")
+@RequestMapping("/ingredient")
 @CrossOrigin
 public class IngredientController {
 

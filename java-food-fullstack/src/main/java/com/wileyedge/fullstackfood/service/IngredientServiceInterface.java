@@ -9,9 +9,9 @@ public interface IngredientServiceInterface {
 
     Ingredient getIngredientById(int id);
 
-    Ingredient addNewIngredient(Ingredient Ingredient);
+    Ingredient addNewIngredient(Ingredient ingredient);
 
-    Ingredient updateIngredientData(int id, Ingredient Ingredient);
+    Ingredient updateIngredientData(int id, Ingredient ingredient);
 
     void deleteIngredientById(int id);
 
