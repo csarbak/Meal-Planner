@@ -1,42 +1,78 @@
--- DROP DATABASE IF EXISTS school;
 
--- create database school;
--- use school;
+-- -----------------------------------------------------
+-- Schema MealPlanner
+-- -----------------------------------------------------
+--DROP SCHEMA IF EXISTS `MealPlanner` ;
 
--- Table structure for student
+-- -----------------------------------------------------
+-- Schema MealPlanner
+-- -----------------------------------------------------
+--CREATE SCHEMA IF NOT EXISTS `MealPlanner` DEFAULT CHARACTER SET utf8 ;
+--USE `MealPlanner` ;
 
-DROP TABLE IF EXISTS student;
-CREATE TABLE student (
-  sid int AUTO_INCREMENT PRIMARY KEY,
-  fName varchar(255) DEFAULT NULL,
-  lName varchar(255) DEFAULT NULL
-);
+-- -----------------------------------------------------
+-- Table `MealPlanner`.`ingredient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS ingredient ;
 
--- Table structure for teacher
-
-DROP TABLE IF EXISTS teacher;
-CREATE TABLE teacher (
-  tid int AUTO_INCREMENT PRIMARY KEY,
-  tFName varchar(255) DEFAULT NULL,
-  tLName varchar(255) DEFAULT NULL,
-  dept varchar(255) DEFAULT NULL
-);
+CREATE TABLE IF NOT EXISTS ingredient (
+  ingredientId INT NOT NULL AUTO_INCREMENT,
+  ingredientName VARCHAR(100) NOT NULL,
+  caloriesPerGram DECIMAL(7,2) NOT NULL,
+  proteinsPerGram DECIMAL(7,2) NOT NULL,
+  fatsPerGram DECIMAL(7,2) NOT NULL,
+  carbohydratesPerGram DECIMAL(7,2) NOT NULL,
+  PRIMARY KEY (ingredientId));
 
 
--- Table structure for course
+-- -----------------------------------------------------
+-- Table `MealPlanner`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS user ;
 
-DROP TABLE IF EXISTS course;
-CREATE TABLE course (
-  cid int AUTO_INCREMENT PRIMARY KEY,
-  courseCode varchar(255) DEFAULT NULL,
-  courseDesc varchar(255) DEFAULT NULL,
-  teacherId int DEFAULT NULL
-);
+CREATE TABLE IF NOT EXISTS user (
+  userId INT NOT NULL AUTO_INCREMENT,
+  userFName VARCHAR(100) NULL,
+  userLName VARCHAR(100) NULL,
+  PRIMARY KEY (userId));
 
--- Table structure for course_student
 
-DROP TABLE IF EXISTS course_student;
-CREATE TABLE course_student (
-  student_id int,
-  course_id int
-);
+-- -----------------------------------------------------
+-- Table `MealPlanner`.`meal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS meal ;
+
+CREATE TABLE IF NOT EXISTS meal (
+  mealId INT NOT NULL AUTO_INCREMENT,
+  mealName VARCHAR(100) NOT NULL,
+  user_id INT NOT NULL,
+  mealDesc MEDIUMTEXT NULL,
+  PRIMARY KEY (mealId),
+  CONSTRAINT fk_user_id
+    FOREIGN KEY (user_id)
+    REFERENCES user (userId)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `MealPlanner`.`meal_ingredient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS meal_ingredient ;
+
+CREATE TABLE IF NOT EXISTS meal_ingredient (
+  ingredient_id INT NOT NULL,
+  meal_id INT NOT NULL,
+  quantityRatioOfIngredient DECIMAL(10,3) NOT NULL,
+  PRIMARY KEY (ingredient_id, meal_id),
+  CONSTRAINT fk_ingredient_id
+    FOREIGN KEY (ingredient_id)
+    REFERENCES ingredient (ingredientId)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_meal_id
+    FOREIGN KEY (meal_id)
+    REFERENCES meal (mealId)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
