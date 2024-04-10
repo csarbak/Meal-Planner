@@ -3,8 +3,11 @@ package com.wileyedge.fullstackfood.dao;
 import com.wileyedge.fullstackfood.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,8 +22,25 @@ public class IngredientDaoImpl implements IngredientDao {
 
 
     @Override
-    public Ingredient createNewIngredient(Ingredient Ingredient) {
-        return null;
+    public Ingredient createNewIngredient(Ingredient ingredient) {
+        String sql = "INSERT INTO ingredient (ingredientId, ingredientName) VALUES (?, ?)";
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection ->  {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,  ingredient.getIngredientId());
+            ps.setString(2, ingredient.getIngredientName());
+            return ps;
+        }, keyHolder);
+
+        Number generatedId = keyHolder.getKey();
+        if (generatedId != null) {
+            int ingredientId = keyHolder.getKey().intValue();
+            ingredient.setIngredientId(ingredientId);
+        } else {
+            throw new RuntimeException("Failed to retrieve auto generated key for ingredient.");
+        }
+        return ingredient;
+
     }
 
     @Override

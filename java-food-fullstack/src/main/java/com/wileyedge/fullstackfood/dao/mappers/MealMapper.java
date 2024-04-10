@@ -9,10 +9,13 @@ public class MealMapper implements RowMapper<Meal> {
     @Override
     public Meal mapRow(ResultSet rs, int rowNum) throws SQLException {
         //YOUR CODE STARTS HERE
+        Meal meal = new Meal();
+        meal.setMealId(rs.getInt("mealId"));
+        meal.setMealName(rs.getString("mealName"));
+        meal.setUserId(rs.getInt("user_id"));
+        meal.setMealDesc(rs.getString("mealDesc"));
 
-
-
+        return meal;
         //YOUR CODE ENDS HERE
-        return null;
     }
 }
