@@ -39,8 +39,15 @@ public class MealDaoImplTests {
         assertEquals(31, mealList.size());
     }
 
-//    @Test
-//    @DisplayName("Get All Meals Test")
+    @Test
+    @DisplayName("Get All Meals Test")
+    public void getAllMealsTest() {
+        List<Meal> newList = mealDao.getAllMeals();
+        assertNotNull(newList);
+        //assertEquals();
+    }
+
+
 
 
 }

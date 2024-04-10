@@ -38,10 +38,10 @@ public class MealDaoStubImpl implements MealDao {
 
     }
 
-    @Override
-    public void deleteAllIngredientsFromMeal(int mealId) {
-
-    }
+//    @Override
+//    public void deleteAllIngredientsFromMeal(int mealId) {
+//
+//    }
 
     @Override
     public List<Ingredient> getIngredientsFromMeal(int mealId) {
