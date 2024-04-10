@@ -90,7 +90,7 @@ public class IngredientDaoImpl implements IngredientDao {
     @Override
     public void deleteIngredient(int id) {
     // delete ingredient from table in database
-        final String sql = "DELETE FROM ingredient WHERE ingredient = ?";
+        final String sql = "DELETE FROM ingredient WHERE ingredient_id = ?";
         jdbcTemplate.update(sql, id);
     }
 
