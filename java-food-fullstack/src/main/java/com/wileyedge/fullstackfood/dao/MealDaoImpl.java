@@ -124,7 +124,13 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calucateTotalCalories(int mealId) {
-        return null;
+        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        BigDecimal totalCaloris = new BigDecimal("0");
+
+        for(Ingredient ingredient : mealIngred){
+            //Sum up all calories here
+        }
+        return totalCaloris;
     }
 
     @Override
