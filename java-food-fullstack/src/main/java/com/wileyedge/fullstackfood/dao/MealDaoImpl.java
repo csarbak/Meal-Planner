@@ -96,10 +96,6 @@ public class MealDaoImpl implements MealDao {
             jdbcTemplate.update(INSERT_MEETING_EMPLOYEE, meal.getMealId(), ingredient.getIngredientId());
         }
     }
-    mealId INT NOT NULL AUTO_INCREMENT,
-    mealName VARCHAR(100) NOT NULL,
-    user_id INT NOT NULL,
-    mealDesc MEDIUMTEXT NULL,
 
     @Override
     public void deleteMeal(int id) {
