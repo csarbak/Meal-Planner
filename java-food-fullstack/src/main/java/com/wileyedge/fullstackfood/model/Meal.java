@@ -1,6 +1,7 @@
 package com.wileyedge.fullstackfood.model;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 public class Meal {
@@ -21,13 +22,13 @@ public class Meal {
 
     private BigDecimal totalCarbohydrates;
 
-    private List<Ingredient> ingredients;
+    private HashMap<Ingredient, Double > ingredients;
 
-    public List<Ingredient> getIngredients() {
+    public HashMap<Ingredient, Double > getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(HashMap<Ingredient, Double > ingredients) {
         this.ingredients = ingredients;
     }
 
