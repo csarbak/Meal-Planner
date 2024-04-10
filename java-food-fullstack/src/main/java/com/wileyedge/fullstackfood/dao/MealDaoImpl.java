@@ -61,6 +61,10 @@ public class MealDaoImpl implements MealDao {
         for(Meal meal : meals) {
             meal.setUserId(getUserForMeal(meal).getUserId());
             meal.setIngredients(getIngredientsFromMeal(meal.getMealId()));
+            meal.setTotalFats(calculateTotalFats(meal.getMealId()));
+            meal.setTotalProteins(calculateTotalProteins(meal.getMealId()));
+            meal.setTotalCarbohydrates(calculateTotalCarbohydrates(meal.getMealId()));
+            meal.setTotalCalories(calculateTotalCalories(meal.getMealId()));
         }
     }
 
