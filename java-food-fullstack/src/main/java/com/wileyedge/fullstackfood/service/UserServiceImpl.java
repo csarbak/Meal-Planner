@@ -4,9 +4,11 @@ import com.wileyedge.fullstackfood.dao.UserDao;
 import com.wileyedge.fullstackfood.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserServiceInterface {
 
     @Autowired

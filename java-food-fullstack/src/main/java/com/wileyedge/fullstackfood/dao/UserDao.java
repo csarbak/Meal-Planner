@@ -15,4 +15,5 @@ public interface UserDao {
     void updateUser(User teacher);
 
     void deleteUser(int id);
+
 }
