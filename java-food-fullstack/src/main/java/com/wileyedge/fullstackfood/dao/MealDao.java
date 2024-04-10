@@ -21,11 +21,11 @@ public interface MealDao {
 
     List<Ingredient> getIngredientsFromMeal(int mealId);
 
-    BigDecimal calucateTotalCalories(int mealId);
+    BigDecimal calculateTotalCalories(int mealId);
 
-    BigDecimal calucateTotalProteins(int mealId);
+    BigDecimal calculateTotalProteins(int mealId);
 
-    BigDecimal calucateTotalFats(int mealId);
+    BigDecimal calculateTotalFats(int mealId);
 
-    BigDecimal calucateTotalCarbohydrates(int mealId);
+    BigDecimal calculateTotalCarbohydrates(int mealId);
 }

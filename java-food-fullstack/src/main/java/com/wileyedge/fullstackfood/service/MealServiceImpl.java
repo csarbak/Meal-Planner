@@ -42,7 +42,7 @@ public class MealServiceImpl implements MealServiceInterface {
         else if (meal.getMealDesc().isBlank()) {
             meal.setMealDesc("Description blank, meal NOT added");
         }
-        return mealDao.createNewMeal(meal);
+        return mealDao.addNewMeal(meal);
     }
 
     @Override

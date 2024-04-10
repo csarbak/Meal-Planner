@@ -60,10 +60,10 @@ public class MealDaoImpl implements MealDao {
         try {
             final String SELECT_ROOM_BY_ID = "SELECT * FROM meal WHERE mealId = ?";
             Meal meal = jdbcTemplate.queryForObject(SELECT_ROOM_BY_ID, new MealMapper(), id);
-            meal.setTotalCalories(calucateTotalCalories(id));
-            meal.setTotalProteins(calucateTotalProteins(id));
-            meal.setTotalFats(calucateTotalFats(id));
-            meal.setTotalCarbohydrates(calucateTotalCarbohydrates(id));
+            meal.setTotalCalories(calculateTotalCalories(id));
+            meal.setTotalProteins(calculateTotalProteins(id));
+            meal.setTotalFats(calculateTotalFats(id));
+            meal.setTotalCarbohydrates(calculateTotalCarbohydrates(id));
             meal.setIngredients(getIngredientsFromMeal(id));
             meal.setUserId(getUserForMeal(meal).getUserId());
             return meal;
@@ -126,7 +126,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public BigDecimal calucateTotalCalories(int mealId) {
+    public BigDecimal calculateTotalCalories(int mealId) {
         List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
         BigDecimal totalCalories = new BigDecimal("0");
 
@@ -137,8 +137,9 @@ public class MealDaoImpl implements MealDao {
         return totalCalories;
     }
 
+
     @Override
-    public BigDecimal calucateTotalProteins(int mealId) {
+    public BigDecimal calculateTotalProteins(int mealId) {
         List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
         BigDecimal totalProteins = new BigDecimal("0");
 
@@ -150,7 +151,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public BigDecimal calucateTotalFats(int mealId) {
+    public BigDecimal calculateTotalFats(int mealId) {
         List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
         BigDecimal total = new BigDecimal("0");
 
@@ -162,7 +163,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public BigDecimal calucateTotalCarbohydrates(int mealId) {
+    public BigDecimal calculateTotalCarbohydrates(int mealId) {
         List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
         BigDecimal total = new BigDecimal("0");
 
