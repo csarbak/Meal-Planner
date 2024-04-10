@@ -3,6 +3,8 @@ package com.wileyedge.fullstackfood.service;
 import com.wileyedge.fullstackfood.dao.MealDao;
 import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public class MealDaoStubImpl implements MealDao {
@@ -12,7 +14,7 @@ public class MealDaoStubImpl implements MealDao {
 
 
     @Override
-    public Meal createNewMeal(Meal meal) {
+    public Meal addNewMeal(Meal meal) {
         return null;
     }
 
@@ -43,6 +45,26 @@ public class MealDaoStubImpl implements MealDao {
 
     @Override
     public List<Ingredient> getIngredientsFromMeal(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateTotalCalories(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateTotalProteins(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateTotalFats(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateTotalCarbohydrates(int mealId) {
         return null;
     }
 }

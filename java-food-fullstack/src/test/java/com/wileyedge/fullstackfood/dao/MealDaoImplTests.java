@@ -33,7 +33,7 @@ public class MealDaoImplTests {
         Meal meal = new Meal();
         meal.setMealName("New Meal");
         meal.setMealDesc("This is a new meal");
-        mealDao.createNewMeal(meal);
+        mealDao.addNewMeal(meal);
         List<Meal> mealList = mealDao.getAllMeals();
         assertNotNull(mealList);
         assertEquals(31, mealList.size());
