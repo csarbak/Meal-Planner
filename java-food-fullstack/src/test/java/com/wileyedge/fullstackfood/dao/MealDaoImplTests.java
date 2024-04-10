@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,22 +37,19 @@ public class MealDaoImplTests {
         meal.setMealName("New Meal");
         meal.setMealDesc("This is a new meal");
         meal.setUserId(2);
-        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        HashMap<Ingredient, BigDecimal > ingredients = new HashMap<>();
         Ingredient ingredient = new Ingredient();
-        ingredient.setIngredientName("sugar");
-        ingredient.setCaloriesPerGram(new BigDecimal("1.0"));
+        ingredient.setIngredientId(10);
 
-        ingredients.add(ingredient);
+        ingredients.put(ingredient, new BigDecimal("0.1"));
         meal.setIngredients(ingredients);
         mealDao.addNewMeal(meal);
         List<Meal> mealList = mealDao.getAllMeals();
 
-        if(mealList.isEmpty()){System.out.println("empty");}
-//        mealList.forEach((e) -> {
-//            System.out.print(e + ", ");
-//        });
+
         assertNotNull(mealList);
         assertEquals(31, mealList.size());
+
     }
 
 //    @Test

@@ -22,13 +22,13 @@ public class Meal {
 
     private BigDecimal totalCarbohydrates;
 
-    private HashMap<Ingredient, Double > ingredients;
+    private HashMap<Ingredient, BigDecimal > ingredients;
 
-    public HashMap<Ingredient, Double > getIngredients() {
+    public HashMap<Ingredient, BigDecimal > getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(HashMap<Ingredient, Double > ingredients) {
+    public void setIngredients(HashMap<Ingredient, BigDecimal > ingredients) {
         this.ingredients = ingredients;
     }
 

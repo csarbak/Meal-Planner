@@ -1,6 +1,7 @@
 package com.wileyedge.fullstackfood.dao;
 
 import com.wileyedge.fullstackfood.dao.mappers.IngredientMapper;
+import com.wileyedge.fullstackfood.dao.mappers.MealIngredientMapper;
 import com.wileyedge.fullstackfood.dao.mappers.MealMapper;
 import com.wileyedge.fullstackfood.dao.mappers.UserMapper;
 import com.wileyedge.fullstackfood.model.Ingredient;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -33,6 +36,7 @@ public class MealDaoImpl implements MealDao {
                 meal.getUserId(),
                 meal.getMealDesc());
 
+        meal.setTotalFats();
         int newId = jdbcTemplate.queryForObject("SELECT LASTVAL()", Integer.class);
         meal.setMealId(newId);
 
@@ -74,6 +78,20 @@ public class MealDaoImpl implements MealDao {
         }
     }
 
+    //Update here
+    @Override
+    public HashMap<Ingredient, BigDecimal > getIngredientsFromMeal(int mealId) {
+        HashMap<Ingredient, BigDecimal > map = new HashMap<>();
+        final String SELECT_INGREDIENTS_FOR_MEAL = "SELECT i.* , mi.quantityRatioOfIngredient FROM ingredient i "
+                + "JOIN meal_ingredient mi ON i.ingredientId = mi.ingredient_id WHERE mi.meal_id = ?";
+        List<AbstractMap.SimpleEntry<Ingredient, BigDecimal>> smLst = jdbcTemplate.query(SELECT_INGREDIENTS_FOR_MEAL, new MealIngredientMapper(),
+                mealId);
+        for (AbstractMap.SimpleEntry<Ingredient, BigDecimal> sm: smLst){
+            map.put(sm.getKey(),sm.getValue());
+        }
+        return map;
+    }
+
     @Override
     @Transactional
     public void updateMeal(Meal meal) {
@@ -111,13 +129,6 @@ public class MealDaoImpl implements MealDao {
 
     }
 
-    @Override
-    public List<Ingredient> getIngredientsFromMeal(int mealId) {
-        final String SELECT_INGREDIENTS_FOR_MEAL = "SELECT i.* FROM ingredient i "
-                + "JOIN meal_ingredient mi ON i.ingredientId = mi.ingredient_id WHERE mi.meal_id = ?";
-        return jdbcTemplate.query(SELECT_INGREDIENTS_FOR_MEAL, new IngredientMapper(),
-                mealId);
-    }
 
     private User getUserForMeal(Meal meal) {
         final String SELECT_USER_FOR_MEAL = "SELECT u.* FROM user u "
@@ -128,10 +139,10 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalCalories(int mealId) {
-        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalCalories = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngredient) {
+        for(Ingredient ingredient : mealIngredient.keySet()) {
             totalCalories = totalCalories.add(ingredient.getCaloriesPerGram());
 
         }
@@ -141,10 +152,10 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalProteins(int mealId) {
-        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalProteins = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngredient) {
+        for(Ingredient ingredient : mealIngredient.keySet()) {
             totalProteins = totalProteins.add(ingredient.getProteinsPerGram());
 
         }
@@ -153,10 +164,10 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalFats(int mealId) {
-        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalFats = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngredient) {
+        for(Ingredient ingredient : mealIngredient.keySet()) {
             totalFats = totalFats.add(ingredient.getFatsPerGram());
 
         }
@@ -165,10 +176,10 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalCarbohydrates(int mealId) {
-        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        HashMap<Ingredient, BigDecimal >  mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalCarbohydrates = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngredient) {
+        for(Ingredient ingredient : mealIngredient.keySet()) {
             totalCarbohydrates = totalCarbohydrates.add(ingredient.getCaloriesPerGram());
 
         }

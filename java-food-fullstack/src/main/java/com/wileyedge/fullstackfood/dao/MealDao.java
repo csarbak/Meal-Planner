@@ -4,6 +4,7 @@ import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 public interface MealDao {
@@ -19,7 +20,7 @@ public interface MealDao {
     void deleteMeal(int id);
 
 
-    List<Ingredient> getIngredientsFromMeal(int mealId);
+    HashMap<Ingredient, BigDecimal > getIngredientsFromMeal(int mealId);
 
     BigDecimal calculateTotalCalories(int mealId);
 
