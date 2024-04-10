@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface IngredientDao {
 
-    Ingredient createNewIngredient(Ingredient Ingredient);
+    Ingredient createNewIngredient(Ingredient ingredient);
 
     List<Ingredient> getAllIngredients();
 
     Ingredient findIngredientById(int id);
 
-    void updateIngredient(Ingredient Ingredient);
+    void updateIngredient(Ingredient ingredient);
 
     void deleteIngredient(int id);
 
-    void addIngredientToMeal(int IngredientId, int mealId);
+    void addIngredientToMeal(int ingredientId, int mealId);
 
-    void deleteIngredientFromMeal(int IngredientId, int mealId);
+    void deleteIngredientFromMeal(int ingredientId, int mealId);
 }

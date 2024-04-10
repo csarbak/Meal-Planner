@@ -95,12 +95,15 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     @Override
-    public void addIngredientToMeal(int IngredientId, int mealId) {
-
+    public void addIngredientToMeal(int ingredientId, int mealId) {
+        final String sql = "INSERT INTO meal_ingredient (mealId, ingredientId) VALUES (?, ?)";
+        jdbcTemplate.update(sql, mealId, ingredientId);
     }
 
     @Override
-    public void deleteIngredientFromMeal(int IngredientId, int mealId) {
-// delete ingredient from bridge
+    public void deleteIngredientFromMeal(int ingredientId, int mealId) {
+    // delete ingredient from bridge
+        final String sql = "DELETE FROM meal_ingredient WHERE ingredient_id = ? AND meal_id = ?";
+        jdbcTemplate.update(sql, ingredientId, mealId);
     }
 }
