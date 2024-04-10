@@ -42,13 +42,13 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public List<Meal> getAllMeals() {
-        final String SELECT_ALL_Meals = "SELECT * FROM meal";
-        List<Meal> meals = jdbcTemplate.query(SELECT_ALL_Meals, new MealMapper());
-        addRoomAndEmployeesToMeetings(meals);
+        final String SELECT_ALL_MEALS = "SELECT * FROM meal";
+        List<Meal> meals = jdbcTemplate.query(SELECT_ALL_MEALS, new MealMapper());
+        addIngredientsToMeals(meals);
         return meals;
     }
 
-    private void addRoomAndEmployeesToMeetings(List<Meal> meals) {
+    private void addIngredientsToMeals(List<Meal> meals) {
         for(Meal meal : meals) {
             meal.setUserId(getUserForMeal(meal).getUserId());
             meal.setIngredients(getIngredientsFromMeal(meal.getMealId()));
@@ -58,8 +58,9 @@ public class MealDaoImpl implements MealDao {
     @Override
     public Meal findMealById(int id) {
         try {
-            final String SELECT_ROOM_BY_ID = "SELECT * FROM meal WHERE mealId = ?";
-            Meal meal = jdbcTemplate.queryForObject(SELECT_ROOM_BY_ID, new MealMapper(), id);
+            final String SELECT_MEAL_BY_ID = "SELECT * FROM meal WHERE mealId = ?";
+            Meal meal = jdbcTemplate.queryForObject(SELECT_MEAL_BY_ID, new MealMapper(), id);
+            assert meal != null;
             meal.setTotalCalories(calculateTotalCalories(id));
             meal.setTotalProteins(calculateTotalProteins(id));
             meal.setTotalFats(calculateTotalFats(id));
@@ -84,53 +85,53 @@ public class MealDaoImpl implements MealDao {
                 meal.getMealId());
 
 
-        final String DELETE_MEAL_INGREDENT = "DELETE FROM meal_ingredient "
+        final String DELETE_MEAL_INGREDIENT = "DELETE FROM meal_ingredient "
                 + "WHERE meal_id = ?";
-        jdbcTemplate.update( DELETE_MEAL_INGREDENT, meal.getMealId());
+        jdbcTemplate.update(DELETE_MEAL_INGREDIENT, meal.getMealId());
         insertMealIngredient(meal);
 
     }
 
     private void insertMealIngredient(Meal meal) {
-        final String INSERT_MEETING_EMPLOYEE = "INSERT INTO meal_ingredient"
+        final String INSERT_MEAL_INGREDIENT = "INSERT INTO meal_ingredient"
                 + "(ingredient_id, meal_id) VALUES(?,?)";
         for(Ingredient ingredient : meal.getIngredients()) {
-            jdbcTemplate.update(INSERT_MEETING_EMPLOYEE, meal.getMealId(), ingredient.getIngredientId());
+            jdbcTemplate.update(INSERT_MEAL_INGREDIENT, meal.getMealId(), ingredient.getIngredientId());
         }
     }
 
     @Override
     public void deleteMeal(int id) {
-        final String DELETE_MEETING_EMPLOYEE = "DELETE FROM meal_ingredient "
+        final String DELETE_MEAL_INGREDIENT = "DELETE FROM meal_ingredient "
                 + "WHERE meal_id = ?";
-        jdbcTemplate.update(DELETE_MEETING_EMPLOYEE, id);
+        jdbcTemplate.update(DELETE_MEAL_INGREDIENT, id);
 
-        final String DELETE_MEETING = "DELETE FROM meal WHERE mealId = ?";
-        jdbcTemplate.update(DELETE_MEETING, id);
+        final String DELETE_MEAL = "DELETE FROM meal WHERE mealId = ?";
+        jdbcTemplate.update(DELETE_MEAL, id);
 
     }
 
     @Override
     public List<Ingredient> getIngredientsFromMeal(int mealId) {
-        final String SELECT_EMPLOYEES_FOR_MEETING = "SELECT i.* FROM ingredient i "
+        final String SELECT_INGREDIENTS_FOR_MEAL = "SELECT i.* FROM ingredient i "
                 + "JOIN meal_ingredient mi ON i.ingredientId = mi.ingredient_id WHERE mi.meal_id = ?";
-        return jdbcTemplate.query(SELECT_EMPLOYEES_FOR_MEETING, new IngredientMapper(),
+        return jdbcTemplate.query(SELECT_INGREDIENTS_FOR_MEAL, new IngredientMapper(),
                 mealId);
     }
 
     private User getUserForMeal(Meal meal) {
-        final String SELECT_ROOM_FOR_MEETING = "SELECT u.* FROM user u "
+        final String SELECT_USER_FOR_MEAL = "SELECT u.* FROM user u "
                 + "JOIN meal m ON u.userId = m.user_id WHERE m.mealId = ?";
-        return jdbcTemplate.queryForObject(SELECT_ROOM_FOR_MEETING, new UserMapper(),
+        return jdbcTemplate.queryForObject(SELECT_USER_FOR_MEAL, new UserMapper(),
                 meal.getMealId());
     }
 
     @Override
     public BigDecimal calculateTotalCalories(int mealId) {
-        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalCalories = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngred){
+        for(Ingredient ingredient : mealIngredient) {
             totalCalories = totalCalories.add(ingredient.getCaloriesPerGram());
 
         }
@@ -140,10 +141,10 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalProteins(int mealId) {
-        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalProteins = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngred){
+        for(Ingredient ingredient : mealIngredient) {
             totalProteins = totalProteins.add(ingredient.getProteinsPerGram());
 
         }
@@ -152,26 +153,26 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public BigDecimal calculateTotalFats(int mealId) {
-        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
-        BigDecimal total = new BigDecimal("0");
+        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        BigDecimal totalFats = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngred){
-            total = total.add(ingredient.getFatsPerGram());
+        for(Ingredient ingredient : mealIngredient) {
+            totalFats = totalFats.add(ingredient.getFatsPerGram());
 
         }
-        return total;
+        return totalFats;
     }
 
     @Override
     public BigDecimal calculateTotalCarbohydrates(int mealId) {
-        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
-        BigDecimal total = new BigDecimal("0");
+        List<Ingredient> mealIngredient = getIngredientsFromMeal(mealId);
+        BigDecimal totalCarbohydrates = new BigDecimal("0");
 
-        for(Ingredient ingredient : mealIngred){
-            total = total.add(ingredient.getCaloriesPerGram());
+        for(Ingredient ingredient : mealIngredient) {
+            totalCarbohydrates = totalCarbohydrates.add(ingredient.getCaloriesPerGram());
 
         }
-        return total;
+        return totalCarbohydrates;
     }
 
 
