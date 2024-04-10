@@ -18,5 +18,5 @@ public interface IngredientDao {
 
     void addIngredientToMeal(int ingredientId, int mealId);
 
-    void deleteIngredientFromMeal(int ingredientId, int mealId);
+    void deleteIngredientFromMeal(int ingredientId);
 }
