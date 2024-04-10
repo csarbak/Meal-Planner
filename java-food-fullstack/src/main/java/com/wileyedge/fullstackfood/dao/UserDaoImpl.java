@@ -55,6 +55,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(int id) {
+
+        final String DELETE_MEAL_INGREDIENT_BY_USER = "DELETE FROM meal_ingredient " +
+            "WHERE meal_id IN (SELECT mealId FROM meal WHERE user_id = ?)";
+        jdbcTemplate.update(DELETE_MEAL_INGREDIENT_BY_USER, id);
+
+        final String DELETE_MEAL_BY_USER = "DELETE FROM meal WHERE user_id = ?";
+        jdbcTemplate.update(DELETE_MEAL_BY_USER, id);
+
         final String DELETE_USER = "DELETE FROM user WHERE userId = ?";
         jdbcTemplate.update(DELETE_USER, id);
     }
