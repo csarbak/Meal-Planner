@@ -94,9 +94,9 @@ public class MealDaoImpl implements MealDao {
 
     private void insertMealIngredient(Meal meal) {
         final String INSERT_MEAL_INGREDIENT = "INSERT INTO meal_ingredient"
-                + "(ingredient_id, meal_id) VALUES(?,?)";
-        for(Ingredient ingredient : meal.getIngredients()) {
-            jdbcTemplate.update(INSERT_MEAL_INGREDIENT, meal.getMealId(), ingredient.getIngredientId());
+                + "(ingredient_id, meal_id, quantityRatioOfIngredient) VALUES(?,?, ?)";
+        for(Ingredient ingredient : meal.getIngredients().keySet()) {
+            jdbcTemplate.update(INSERT_MEAL_INGREDIENT, ingredient.getIngredientId() , meal.getMealId(), meal.getIngredients().get(ingredient)  );
         }
     }
 
