@@ -39,7 +39,7 @@ public class IngredientDaoStubImpl implements IngredientDao {
     }
 
     @Override
-    public void deleteIngredientFromMeal(int IngredientId, int courseId) {
+    public void deleteIngredientFromMeal(int IngredientId) {
 
     }
 }

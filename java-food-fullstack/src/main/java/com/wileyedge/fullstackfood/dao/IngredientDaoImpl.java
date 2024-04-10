@@ -90,6 +90,7 @@ public class IngredientDaoImpl implements IngredientDao {
     @Override
     public void deleteIngredient(int id) {
     // delete ingredient from table in database
+        deleteIngredientFromMeal(id);
         final String sql = "DELETE FROM ingredient WHERE ingredientId = ?";
         jdbcTemplate.update(sql, id);
     }
@@ -101,9 +102,9 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     @Override
-    public void deleteIngredientFromMeal(int ingredientId, int mealId) {
+    public void deleteIngredientFromMeal(int ingredientId) {
     // delete ingredient from bridge
-        final String sql = "DELETE FROM meal_ingredient WHERE ingredient_id = ? AND meal_id = ?";
-        jdbcTemplate.update(sql, ingredientId, mealId);
+        final String sql = "DELETE FROM meal_ingredient WHERE ingredient_id = ?";
+        jdbcTemplate.update(sql, ingredientId);
     }
 }
