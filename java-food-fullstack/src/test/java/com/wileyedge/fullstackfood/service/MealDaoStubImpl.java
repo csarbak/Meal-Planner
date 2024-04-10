@@ -1,6 +1,7 @@
 package com.wileyedge.fullstackfood.service;
 
 import com.wileyedge.fullstackfood.dao.MealDao;
+import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 import java.util.List;
 
@@ -36,7 +37,12 @@ public class MealDaoStubImpl implements MealDao {
     }
 
     @Override
-    public void deleteAllIngredientsFromMeal(int MealId) {
+    public void deleteAllIngredientsFromMeal(int mealId) {
 
+    }
+
+    @Override
+    public List<Ingredient> getIngredientsFromMeal(int mealId) {
+        return null;
     }
 }

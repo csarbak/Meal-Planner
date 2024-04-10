@@ -1,5 +1,6 @@
 package com.wileyedge.fullstackfood.dao;
 
+import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface MealDao {
     void deleteMeal(int id);
 
     void deleteAllIngredientsFromMeal(int mealId);
+
+    List<Ingredient> getIngredientsFromMeal(int mealId);
 }

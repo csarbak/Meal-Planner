@@ -1,6 +1,87 @@
 package com.wileyedge.fullstackfood.model;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class Meal {
+
+    private int mealId;
+
+    private String mealName;
+
+    private String mealDesc;
+
+    private int userId;
+
+    private BigDecimal totalCalories;
+
+    private BigDecimal totalProteins;
+
+    private BigDecimal totalFats;
+
+    private BigDecimal totalCarbohydrates;
+
+    private List<Ingredient> ingredients;
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+
+
+    public BigDecimal getTotalCalories() {
+        return totalCalories;
+    }
+
+    public void setTotalCalories(BigDecimal totalCalories) {
+        this.totalCalories = totalCalories;
+    }
+
+    public BigDecimal getTotalProteins() {
+        return totalProteins;
+    }
+
+    public void setTotalProteins(BigDecimal totalProteins) {
+        this.totalProteins = totalProteins;
+    }
+
+    public BigDecimal getTotalFats() {
+        return totalFats;
+    }
+
+    public void setTotalFats(BigDecimal totalFats) {
+        this.totalFats = totalFats;
+    }
+
+    public BigDecimal getTotalCarbohydrates() {
+        return totalCarbohydrates;
+    }
+
+    public void setTotalCarbohydrates(BigDecimal totalCarbohydrates) {
+        this.totalCarbohydrates = totalCarbohydrates;
+    }
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
+    public String getMealDesc() {
+        return mealDesc;
+    }
+
+    public void setMealDesc(String mealDesc) {
+        this.mealDesc = mealDesc;
+    }
+
+
     public int getMealId() {
         return mealId;
     }
@@ -9,7 +90,6 @@ public class Meal {
         this.mealId = mealId;
     }
 
-    private int mealId;
 
     public String getMealName() {
         return mealName;
@@ -19,5 +99,4 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    private String mealName;
 }

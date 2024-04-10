@@ -1,5 +1,6 @@
 package com.wileyedge.fullstackfood.dao;
 
+import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,5 +45,10 @@ public class MealDaoImpl implements MealDao {
     @Override
     public void deleteAllIngredientsFromMeal(int mealId) {
 
+    }
+
+    @Override
+    public List<Ingredient> getIngredientsFromMeal(int mealId) {
+        return null;
     }
 }

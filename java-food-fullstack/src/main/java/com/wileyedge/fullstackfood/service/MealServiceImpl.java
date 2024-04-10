@@ -3,39 +3,62 @@ package com.wileyedge.fullstackfood.service;
 import com.wileyedge.fullstackfood.dao.MealDao;
 import com.wileyedge.fullstackfood.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class MealServiceImpl implements MealServiceInterface {
 
-    //YOUR CODE STARTS HERE
     @Autowired
     MealDao mealDao;
 
-
+    public MealServiceImpl(MealDao mealDao) {
+        this.mealDao = mealDao;
+    }
     @Override
     public List<Meal> getAllMeals() {
-        return null;
+        return mealDao.getAllMeals();
     }
 
     @Override
     public Meal getMealById(int id) {
-        return null;
+        try {
+            return mealDao.findMealById(id);
+        } catch (DataAccessException e) {
+            Meal mealNotFound = new Meal();
+            mealNotFound.setMealName("Meal Not Found");
+            mealNotFound.setMealDesc("Meal Not Found");
+            return mealNotFound;
+        }
     }
 
     @Override
     public Meal addNewMeal(Meal meal) {
-        return null;
+        if (meal.getMealName().isBlank()) {
+            meal.setMealDesc("Name blank, meal NOT added");
+
+        }
+        else if (meal.getMealDesc().isBlank()) {
+            meal.setMealDesc("Description blank, meal NOT added");
+        }
+        return mealDao.createNewMeal(meal);
     }
 
     @Override
     public Meal updateMealData(int id, Meal meal) {
-        return null;
+        if (id != meal.getMealId()) {
+            meal.setMealName("IDs do not match, meal not updated");
+            meal.setMealDesc("IDs do not match, meal not updated");
+            return meal;
+        }
+        mealDao.updateMeal(meal);
+        return mealDao.findMealById(id);
     }
 
     @Override
     public void deleteMealById(int id) {
-
+        mealDao.deleteMeal(id);
+        System.out.println("Meal ID: " + id + " deleted");
     }
 }
