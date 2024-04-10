@@ -3,11 +3,12 @@ package com.wileyedge.fullstackfood.dao;
 import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface MealDao {
 
-    Meal createNewMeal(Meal meal);
+    Meal addNewMeal(Meal meal);
 
     List<Meal> getAllMeals();
 
@@ -20,4 +21,12 @@ public interface MealDao {
     void deleteAllIngredientsFromMeal(int mealId);
 
     List<Ingredient> getIngredientsFromMeal(int mealId);
+
+    BigDecimal calucateTotalCalories(int mealId);
+
+    BigDecimal calucateTotalProteins(int mealId);
+
+    BigDecimal calucateTotalFats(int mealId);
+
+    BigDecimal calucateTotalCarbohydrates(int mealId);
 }

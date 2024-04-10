@@ -1,10 +1,17 @@
 package com.wileyedge.fullstackfood.dao;
 
+import com.wileyedge.fullstackfood.dao.mappers.IngredientMapper;
+import com.wileyedge.fullstackfood.dao.mappers.MealMapper;
+import com.wileyedge.fullstackfood.dao.mappers.UserMapper;
 import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
+import com.wileyedge.fullstackfood.model.User;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -18,24 +25,81 @@ public class MealDaoImpl implements MealDao {
 
 
     @Override
-    public Meal createNewMeal(Meal meal) {
-        return null;
+    @Transactional
+    public Meal addNewMeal(Meal meal) {
+        final String INSERT_MEAL = "INSERT INTO meal(mealName, user_id, mealDesc ) VALUES(?,?,?)";
+        jdbcTemplate.update(INSERT_MEAL,
+                meal.getMealName(),
+                meal.getUserId(),
+                meal.getMealDesc());
+
+        int newId = jdbcTemplate.queryForObject("SELECT LASTVAL()", Integer.class);
+        meal.setMealId(newId);
+        return meal;
     }
 
     @Override
     public List<Meal> getAllMeals() {
-        return null;
+        final String SELECT_ALL_Meals = "SELECT * FROM meal";
+        List<Meal> meals = jdbcTemplate.query(SELECT_ALL_Meals, new MealMapper());
+        addRoomAndEmployeesToMeetings(meals);
+        return meals;
+    }
+
+    private void addRoomAndEmployeesToMeetings(List<Meal> meals) {
+        for(Meal meal : meals) {
+            meal.setUserId(getUserForMeal(meal).getUserId());
+            meal.setIngredients(getIngredientsFromMeal(meal.getMealId()));
+        }
     }
 
     @Override
     public Meal findMealById(int id) {
-        return null;
+        try {
+            final String SELECT_ROOM_BY_ID = "SELECT * FROM meal WHERE mealId = ?";
+            Meal meal = jdbcTemplate.queryForObject(SELECT_ROOM_BY_ID, new MealMapper(), id);
+            meal.setTotalCalories(calucateTotalCalories(id));
+            meal.setTotalProteins(calucateTotalProteins(id));
+            meal.setTotalFats(calucateTotalFats(id));
+            meal.setTotalCarbohydrates(calucateTotalCarbohydrates(id));
+            meal.setIngredients(getIngredientsFromMeal(id));
+            meal.setUserId(getUserForMeal(meal).getUserId());
+            return meal;
+
+        } catch(DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
+    @Transactional
     public void updateMeal(Meal meal) {
+        final String UPDATE_Meal = "UPDATE meal SET mealName = ?, mealDesc = ?, user_id =?  WHERE mealId = ?";
+        jdbcTemplate.update(UPDATE_Meal,
+                meal.getMealName(),
+                meal.getMealDesc(),
+                meal.getUserId(),
+                meal.getMealId());
+
+
+        final String DELETE_MEAL_INGREDENT = "DELETE FROM meal_ingredient "
+                + "WHERE meal_id = ?";
+        jdbcTemplate.update( DELETE_MEAL_INGREDENT, meal.getMealId());
+        insertMealIngredient(meal);
 
     }
+
+    private void insertMealIngredient(Meal meal) {
+        final String INSERT_MEETING_EMPLOYEE = "INSERT INTO meal_ingredient"
+                + "(ingredient_id, meal_id) VALUES(?,?)";
+        for(Ingredient ingredient : meal.getIngredients()) {
+            jdbcTemplate.update(INSERT_MEETING_EMPLOYEE, meal.getMealId(), ingredient.getIngredientId());
+        }
+    }
+    mealId INT NOT NULL AUTO_INCREMENT,
+    mealName VARCHAR(100) NOT NULL,
+    user_id INT NOT NULL,
+    mealDesc MEDIUMTEXT NULL,
 
     @Override
     public void deleteMeal(int id) {
@@ -49,6 +113,38 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public List<Ingredient> getIngredientsFromMeal(int mealId) {
+        final String SELECT_EMPLOYEES_FOR_MEETING = "SELECT i.* FROM ingredient i "
+                + "JOIN meal_ingredient mi ON i.ingredientId = mi.ingredient_id WHERE mi.meal_id = ?";
+        return jdbcTemplate.query(SELECT_EMPLOYEES_FOR_MEETING, new IngredientMapper(),
+                mealId);
+    }
+
+    private User getUserForMeal(Meal meal) {
+        final String SELECT_ROOM_FOR_MEETING = "SELECT u.* FROM user u "
+                + "JOIN meal m ON u.userId = m.user_id WHERE m.mealId = ?";
+        return jdbcTemplate.queryForObject(SELECT_ROOM_FOR_MEETING, new UserMapper(),
+                meal.getMealId());
+    }
+
+    @Override
+    public BigDecimal calucateTotalCalories(int mealId) {
         return null;
     }
+
+    @Override
+    public BigDecimal calucateTotalProteins(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calucateTotalFats(int mealId) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calucateTotalCarbohydrates(int mealId) {
+        return null;
+    }
+
+
 }
