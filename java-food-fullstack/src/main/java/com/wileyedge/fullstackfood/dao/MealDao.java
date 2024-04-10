@@ -18,7 +18,6 @@ public interface MealDao {
 
     void deleteMeal(int id);
 
-    void deleteAllIngredientsFromMeal(int mealId);
 
     List<Ingredient> getIngredientsFromMeal(int mealId);
 

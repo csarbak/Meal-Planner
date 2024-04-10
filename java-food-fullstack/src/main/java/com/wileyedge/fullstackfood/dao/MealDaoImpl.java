@@ -101,12 +101,12 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public void deleteMeal(int id) {
+        final String DELETE_MEETING_EMPLOYEE = "DELETE FROM meal_ingredient "
+                + "WHERE meal_id = ?";
+        jdbcTemplate.update(DELETE_MEETING_EMPLOYEE, id);
 
-
-    }
-
-    @Override
-    public void deleteAllIngredientsFromMeal(int mealId) {
+        final String DELETE_MEETING = "DELETE FROM meal WHERE mealId = ?";
+        jdbcTemplate.update(DELETE_MEETING, id);
 
     }
 
@@ -128,27 +128,49 @@ public class MealDaoImpl implements MealDao {
     @Override
     public BigDecimal calucateTotalCalories(int mealId) {
         List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
-        BigDecimal totalCaloris = new BigDecimal("0");
+        BigDecimal totalCalories = new BigDecimal("0");
 
         for(Ingredient ingredient : mealIngred){
-            //Sum up all calories here
+            totalCalories = totalCalories.add(ingredient.getCaloriesPerGram());
+
         }
-        return totalCaloris;
+        return totalCalories;
     }
 
     @Override
     public BigDecimal calucateTotalProteins(int mealId) {
-        return null;
+        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        BigDecimal totalProteins = new BigDecimal("0");
+
+        for(Ingredient ingredient : mealIngred){
+            totalProteins = totalProteins.add(ingredient.getProteinsPerGram());
+
+        }
+        return totalProteins;
     }
 
     @Override
     public BigDecimal calucateTotalFats(int mealId) {
-        return null;
+        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        BigDecimal total = new BigDecimal("0");
+
+        for(Ingredient ingredient : mealIngred){
+            total = total.add(ingredient.getFatsPerGram());
+
+        }
+        return total;
     }
 
     @Override
     public BigDecimal calucateTotalCarbohydrates(int mealId) {
-        return null;
+        List<Ingredient> mealIngred = getIngredientsFromMeal(mealId);
+        BigDecimal total = new BigDecimal("0");
+
+        for(Ingredient ingredient : mealIngred){
+            total = total.add(ingredient.getCaloriesPerGram());
+
+        }
+        return total;
     }
 
 
