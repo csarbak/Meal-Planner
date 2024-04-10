@@ -25,7 +25,8 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update(INSERT_USER,
             user.getUserFName(),
             user.getUserLName());
-
+        int newId = jdbcTemplate.queryForObject("SELECT LASTVAL()", Integer.class);
+        user.setUserId(newId);
         return user;
     }
 
