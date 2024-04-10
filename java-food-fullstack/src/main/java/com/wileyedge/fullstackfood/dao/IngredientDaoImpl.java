@@ -1,11 +1,14 @@
 package com.wileyedge.fullstackfood.dao;
 
+import com.wileyedge.fullstackfood.dao.mappers.IngredientMapper;
 import com.wileyedge.fullstackfood.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -23,12 +26,17 @@ public class IngredientDaoImpl implements IngredientDao {
 
     @Override
     public Ingredient createNewIngredient(Ingredient ingredient) {
-        String sql = "INSERT INTO ingredient (ingredientId, ingredientName) VALUES (?, ?)";
+        final String sql = "INSERT INTO ingredient (ingredientName, caloriesPerGram, " +
+                "proteinsPerGram, fatsPerGram, carbohydratesPerGram) VALUES (?, ?, ?, ?, ?)";
+
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection ->  {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,  ingredient.getIngredientId());
-            ps.setString(2, ingredient.getIngredientName());
+            ps.setString(1, ingredient.getIngredientName());
+            ps.setBigDecimal(2, ingredient.getCaloriesPerGram());
+            ps.setBigDecimal(3, ingredient.getProteinsPerGram());
+            ps.setBigDecimal(4, ingredient.getFatsPerGram());
+            ps.setBigDecimal(5, ingredient.getCarbohydratesPerGram());
             return ps;
         }, keyHolder);
 
@@ -40,27 +48,50 @@ public class IngredientDaoImpl implements IngredientDao {
             throw new RuntimeException("Failed to retrieve auto generated key for ingredient.");
         }
         return ingredient;
-
     }
 
     @Override
     public List<Ingredient> getAllIngredients() {
-        return null;
+        final String sql = "SELECT ingredientId, ingredientName, caloriesPerGram, " +
+                "proteinsPerGram, fatsPerGram, carbohydratesPerGram FROM ingredient";
+        return jdbcTemplate.query(sql, new IngredientMapper());
     }
 
     @Override
     public Ingredient findIngredientById(int id) {
-        return null;
+        final String sql = "SELECT ingredientId, ingredientName, caloriesPerGram, " +
+                "proteinsPerGram, fatsPerGram, carbohydratesPerGram " +
+                "FROM ingredient " +
+                "WHERE ingredientId = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new IngredientMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // If no record found, return null
+        }
+
     }
 
     @Override
-    public void updateIngredient(Ingredient Ingredient) {
-
+    public void updateIngredient(Ingredient ingredient) {
+        final String sql = "UPDATE ingredient " +
+                "SET ingredientName = ?, caloriesPerGram = ?, proteinsPerGram = ?, " +
+                "fatsPerGram = ?, carbohydratesPerGram = ? " +
+                "WHERE ingredientId = ?";
+        jdbcTemplate.update(sql,
+                ingredient.getIngredientName(),
+                ingredient.getCaloriesPerGram(),
+                ingredient.getProteinsPerGram(),
+                ingredient.getFatsPerGram(),
+                ingredient.getCarbohydratesPerGram(),
+                ingredient.getIngredientId()
+                );
     }
 
     @Override
     public void deleteIngredient(int id) {
-
+    // delete ingredient from table in database
+        final String sql = "DELETE FROM ingredient WHERE ingredient = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
@@ -70,6 +101,6 @@ public class IngredientDaoImpl implements IngredientDao {
 
     @Override
     public void deleteIngredientFromMeal(int IngredientId, int mealId) {
-
+// delete ingredient from bridge
     }
 }
