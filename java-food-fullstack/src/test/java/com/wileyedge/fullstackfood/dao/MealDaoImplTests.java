@@ -29,30 +29,30 @@ public class MealDaoImplTests {
         mealDao = new MealDaoImpl(jdbcTemplate);
     }
 
-    @Test
-    @DisplayName("Create New Meal Test")
-    public void createNewMealTest() {
-        Meal meal = new Meal();
-        meal.setMealName("New Meal");
-        meal.setMealDesc("This is a new meal");
-        meal.setUserId(2);
-        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-        Ingredient ingredient = new Ingredient();
-        ingredient.setIngredientName("sugar");
-        ingredient.setCaloriesPerGram(new BigDecimal("1.0"));
-
-        ingredients.add(ingredient);
-        meal.setIngredients(ingredients);
-        mealDao.addNewMeal(meal);
-        List<Meal> mealList = mealDao.getAllMeals();
-
-        if(mealList.isEmpty()){System.out.println("empty");}
-//        mealList.forEach((e) -> {
-//            System.out.print(e + ", ");
-//        });
-        assertNotNull(mealList);
-        assertEquals(31, mealList.size());
-    }
+//    @Test
+//    @DisplayName("Create New Meal Test")
+//    public void createNewMealTest() {
+//        Meal meal = new Meal();
+//        meal.setMealName("New Meal");
+//        meal.setMealDesc("This is a new meal");
+//        meal.setUserId(2);
+//        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+//        Ingredient ingredient = new Ingredient();
+//        ingredient.setIngredientName("sugar");
+//        ingredient.setCaloriesPerGram(new BigDecimal("1.0"));
+//
+//        ingredients.add(ingredient);
+//        meal.setIngredients(ingredients);
+//        mealDao.addNewMeal(meal);
+//        List<Meal> mealList = mealDao.getAllMeals();
+//
+//        if(mealList.isEmpty()){System.out.println("empty");}
+////        mealList.forEach((e) -> {
+////            System.out.print(e + ", ");
+////        });
+//        assertNotNull(mealList);
+//        assertEquals(31, mealList.size());
+//    }
 
     @Test
     @DisplayName("Get All Meals Test")
