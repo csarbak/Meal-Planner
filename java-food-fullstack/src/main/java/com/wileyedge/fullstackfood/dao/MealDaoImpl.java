@@ -35,6 +35,8 @@ public class MealDaoImpl implements MealDao {
 
         int newId = jdbcTemplate.queryForObject("SELECT LASTVAL()", Integer.class);
         meal.setMealId(newId);
+
+        insertMealIngredient(meal);
         return meal;
     }
 
@@ -99,6 +101,7 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public void deleteMeal(int id) {
+
 
     }
 
