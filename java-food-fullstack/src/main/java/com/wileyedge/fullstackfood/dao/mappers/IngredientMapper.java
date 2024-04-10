@@ -12,6 +12,10 @@ public class IngredientMapper implements RowMapper<Ingredient> {
         Ingredient ingredient = new Ingredient();
         ingredient.setIngredientId(rs.getInt("ingredientId"));
         ingredient.setIngredientName(rs.getString("ingredientName"));
+        ingredient.setCaloriesPerGram(rs.getBigDecimal("caloriesPerGram"));
+        ingredient.setProteinsPerGram(rs.getBigDecimal("proteinsPerGram"));
+        ingredient.setFatsPerGram(rs.getBigDecimal("fatsPerGram"));
+        ingredient.setCarbohydratesPerGram(rs.getBigDecimal("carbohydratesPerGram"));
 
         return ingredient;
         //YOUR CODE ENDS HERE
