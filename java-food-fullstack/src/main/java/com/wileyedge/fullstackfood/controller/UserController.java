@@ -1,7 +1,7 @@
 package com.wileyedge.fullstackfood.controller;
 
 import com.wileyedge.fullstackfood.model.User;
-import com.wileyedge.fullstackfood.service.UserServiceImpl;
+import com.wileyedge.fullstackfood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserServiceImpl userService;
+    UserService userService;
 
     @GetMapping("/users")
     List<User> getAllUsers() {

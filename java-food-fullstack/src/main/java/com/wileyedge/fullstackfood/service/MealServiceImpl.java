@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MealServiceImpl implements MealServiceInterface {
+public class MealServiceImpl implements MealService {
 
     @Autowired
     MealDao mealDao;

@@ -4,7 +4,7 @@ import com.wileyedge.fullstackfood.model.Meal;
 
 import java.util.List;
 
-public interface MealServiceInterface {
+public interface MealService {
     List<Meal> getAllMeals();
 
     Meal getMealById(int id);

@@ -1,7 +1,7 @@
 package com.wileyedge.fullstackfood.controller;
 
 import com.wileyedge.fullstackfood.model.Meal;
-import com.wileyedge.fullstackfood.service.MealServiceImpl;
+import com.wileyedge.fullstackfood.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class MealController {
     @Autowired
-    MealServiceImpl mealService;
+    MealService mealService;
 
     @GetMapping("/meals")
     List<Meal> getAllMeals() {

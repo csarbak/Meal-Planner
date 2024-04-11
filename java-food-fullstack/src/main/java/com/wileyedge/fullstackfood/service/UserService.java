@@ -4,7 +4,7 @@ import com.wileyedge.fullstackfood.model.User;
 
 import java.util.List;
 
-public interface UserServiceInterface {
+public interface UserService {
 
     List<User> getAllUsers();
 
