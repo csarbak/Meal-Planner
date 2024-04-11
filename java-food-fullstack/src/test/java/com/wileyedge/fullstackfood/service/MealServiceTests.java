@@ -60,7 +60,7 @@ public class MealServiceTests {
         meal.setMealDesc("Updated Meal Desc");
         meal.setUserId(13);
 
-        Meal updatedMeal = mealService.updateMealData(99, meal);
+        mealService.updateMealData(99, meal);
         assertEquals("IDs do not match, meal not updated", meal.getMealName());
         assertEquals("IDs do not match, meal not updated", meal.getMealDesc());
     }
@@ -83,8 +83,10 @@ public class MealServiceTests {
         Meal meal = new Meal();
         meal.setMealName("");
         meal.setMealDesc("");
-        Meal newMeal = mealService.addNewMeal(meal);
+        meal.setUserId(0);
+        mealService.addNewMeal(meal);
         assertEquals("Name blank, meal NOT added", meal.getMealName());
         assertEquals("Description blank, meal NOT added", meal.getMealDesc());
+        assertEquals(-1, meal.getUserId());
     }
 }

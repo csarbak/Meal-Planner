@@ -5,6 +5,8 @@ import com.wileyedge.fullstackfood.model.Ingredient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -52,7 +54,7 @@ public class IngredientServiceTests {
         ingredient.setIngredientId(100);
         ingredient.setIngredientName("Updated Ingredient First Name");
 
-        Ingredient updatedIngredient = ingredientService.updateIngredientData(99, ingredient);
+        ingredientService.updateIngredientData(99, ingredient);
         assertEquals("IDs do not match, ingredient not updated", ingredient.getIngredientName());
     }
 
@@ -72,8 +74,19 @@ public class IngredientServiceTests {
     public void ingredientNotAddedServiceTest() {
         Ingredient ingredient = new Ingredient();
         ingredient.setIngredientName("");
-        Ingredient newIngredient = ingredientService.addNewIngredient(ingredient);
+        ingredient.setCaloriesPerGram(null);
+        ingredient.setFatsPerGram(null);
+        ingredient.setProteinsPerGram(null);
+        ingredient.setCarbohydratesPerGram(null);
+        ingredientService.addNewIngredient(ingredient);
         assertEquals("Name blank, ingredient NOT added", ingredient.getIngredientName());
+        assertEquals(new BigDecimal(-1), ingredient.getCaloriesPerGram());
+        assertEquals(new BigDecimal(-1), ingredient.getFatsPerGram());
+        assertEquals(new BigDecimal(-1), ingredient.getCarbohydratesPerGram());
+        assertEquals(new BigDecimal(-1), ingredient.getProteinsPerGram());
+
+
     }
+
 
 }

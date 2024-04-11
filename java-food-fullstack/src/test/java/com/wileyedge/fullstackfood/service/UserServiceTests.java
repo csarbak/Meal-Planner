@@ -55,7 +55,7 @@ public class UserServiceTests {
         user.setUserFName("Updated First Name");
         user.setUserLName("Updated Last Name");
 
-        User updatedUser = userService.updateUserData(150, user);
+        userService.updateUserData(150, user);
         assertEquals("IDs do not match, user not updated", user.getUserFName());
         assertEquals("IDs do not match, user not updated", user.getUserLName());
     }
@@ -78,7 +78,7 @@ public class UserServiceTests {
         User user = new User();
         user.setUserFName("");
         user.setUserLName("");
-        User newUser = userService.addNewUser(user);
+        userService.addNewUser(user);
         assertEquals("First Name blank, user NOT added", user.getUserFName());
         assertEquals("Last Name blank, user NOT added", user.getUserLName());
     }
