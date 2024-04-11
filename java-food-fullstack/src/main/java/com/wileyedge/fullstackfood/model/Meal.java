@@ -2,7 +2,6 @@ package com.wileyedge.fullstackfood.model;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 
 public class Meal {
 

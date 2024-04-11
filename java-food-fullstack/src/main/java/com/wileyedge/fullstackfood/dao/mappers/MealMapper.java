@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class MealMapper implements RowMapper<Meal> {
     @Override
     public Meal mapRow(ResultSet rs, int rowNum) throws SQLException {
-        //YOUR CODE STARTS HERE
         Meal meal = new Meal();
         meal.setMealId(rs.getInt("mealId"));
         meal.setMealName(rs.getString("mealName"));
@@ -16,6 +15,6 @@ public class MealMapper implements RowMapper<Meal> {
         meal.setMealDesc(rs.getString("mealDesc"));
 
         return meal;
-        //YOUR CODE ENDS HERE
+
     }
 }

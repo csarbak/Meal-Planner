@@ -1,6 +1,5 @@
 package com.wileyedge.fullstackfood.dao;
 
-import com.wileyedge.fullstackfood.dao.mappers.IngredientMapper;
 import com.wileyedge.fullstackfood.dao.mappers.MealIngredientMapper;
 import com.wileyedge.fullstackfood.dao.mappers.MealMapper;
 import com.wileyedge.fullstackfood.dao.mappers.UserMapper;
