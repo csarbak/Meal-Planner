@@ -2,12 +2,17 @@ package com.wileyedge.fullstackfood.service;
 
 
 import com.wileyedge.fullstackfood.dao.MealDao;
+import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MealServiceTests {
     private MealServiceImpl mealService;
@@ -84,9 +89,12 @@ public class MealServiceTests {
         meal.setMealName("");
         meal.setMealDesc("");
         meal.setUserId(0);
+        meal.setIngredients(new HashMap<Ingredient, BigDecimal>());
         mealService.addNewMeal(meal);
         assertEquals("Name blank, meal NOT added", meal.getMealName());
         assertEquals("Description blank, meal NOT added", meal.getMealDesc());
         assertEquals(-1, meal.getUserId());
+        assertNull(meal.getIngredients().get(0));
+
     }
 }
