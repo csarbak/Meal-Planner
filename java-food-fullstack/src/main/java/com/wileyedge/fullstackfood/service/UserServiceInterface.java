@@ -10,9 +10,9 @@ public interface UserServiceInterface {
 
     User getUserById(int id);
 
-    User addNewUser(User teacher);
+    User addNewUser(User user);
 
-    User updateUserData(int id, User teacher);
+    User updateUserData(int id, User user);
 
     void deleteUserById(int id);
 }
