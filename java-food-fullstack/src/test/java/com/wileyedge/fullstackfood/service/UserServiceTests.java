@@ -42,7 +42,7 @@ public class UserServiceTests {
 
         User updatedUser = userService.updateUserData(300, user);
         assertNotNull(updatedUser);
-        assertEquals(300, user.getUserId());
+        assertEquals(300, updatedUser.getUserId());
         assertEquals("Updated User First Name", updatedUser.getUserFName());
         assertEquals("Updated User Last Name", updatedUser.getUserLName());
     }

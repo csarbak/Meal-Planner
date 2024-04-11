@@ -21,7 +21,7 @@ public class IngredientDaoImplTests {
     private IngredientDao ingredientDao;
 
     @Autowired
-    public void IngredientDaoImplTest(JdbcTemplate jdbcTemplate) {
+    public IngredientDaoImplTests(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         ingredientDao = new IngredientDaoImpl(jdbcTemplate);
     }

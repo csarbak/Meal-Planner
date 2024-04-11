@@ -18,7 +18,7 @@ public class UserDaoImplTests {
     private UserDao userDao;
 
     @Autowired
-    public void UserDaoImplTests(JdbcTemplate jdbcTemplate){
+    public UserDaoImplTests(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
         userDao = new UserDaoImpl(jdbcTemplate);
     }

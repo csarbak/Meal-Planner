@@ -25,7 +25,7 @@ public class MealDaoImplTests {
     private MealDao mealDao;
 
     @Autowired
-    public void MealDaoImplTests(JdbcTemplate jdbcTemplate) {
+    public MealDaoImplTests(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         mealDao = new MealDaoImpl(jdbcTemplate);
     }

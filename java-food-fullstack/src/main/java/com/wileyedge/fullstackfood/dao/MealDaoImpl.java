@@ -87,7 +87,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     //Update here
-    @Override
+
     public HashMap<Ingredient, BigDecimal > getIngredientsFromMeal(int mealId) {
         HashMap<Ingredient, BigDecimal > map = new HashMap<>();
         final String SELECT_INGREDIENTS_FOR_MEAL = "SELECT i.* , mi.quantityRatioOfIngredient FROM ingredient i "
@@ -145,7 +145,7 @@ public class MealDaoImpl implements MealDao {
                 meal.getMealId());
     }
 
-    @Override
+
     public BigDecimal calculateTotalCalories(int mealId) {
         HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalCalories = new BigDecimal("0");
@@ -158,7 +158,7 @@ public class MealDaoImpl implements MealDao {
     }
 
 
-    @Override
+
     public BigDecimal calculateTotalProteins(int mealId) {
         HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalProteins = new BigDecimal("0");
@@ -170,7 +170,7 @@ public class MealDaoImpl implements MealDao {
         return totalProteins;
     }
 
-    @Override
+
     public BigDecimal calculateTotalFats(int mealId) {
         HashMap<Ingredient, BigDecimal > mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalFats = new BigDecimal("0");
@@ -182,7 +182,7 @@ public class MealDaoImpl implements MealDao {
         return totalFats;
     }
 
-    @Override
+
     public BigDecimal calculateTotalCarbohydrates(int mealId) {
         HashMap<Ingredient, BigDecimal >  mealIngredient = getIngredientsFromMeal(mealId);
         BigDecimal totalCarbohydrates = new BigDecimal("0");

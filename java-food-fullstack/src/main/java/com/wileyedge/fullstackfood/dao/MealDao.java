@@ -20,13 +20,13 @@ public interface MealDao {
     void deleteMeal(int id);
 
 
-    HashMap<Ingredient, BigDecimal > getIngredientsFromMeal(int mealId);
-
-    BigDecimal calculateTotalCalories(int mealId);
-
-    BigDecimal calculateTotalProteins(int mealId);
-
-    BigDecimal calculateTotalFats(int mealId);
-
-    BigDecimal calculateTotalCarbohydrates(int mealId);
+//    HashMap<Ingredient, BigDecimal > getIngredientsFromMeal(int mealId);
+//
+//    BigDecimal calculateTotalCalories(int mealId);
+//
+//    BigDecimal calculateTotalProteins(int mealId);
+//
+//    BigDecimal calculateTotalFats(int mealId);
+//
+//    BigDecimal calculateTotalCarbohydrates(int mealId);
 }
