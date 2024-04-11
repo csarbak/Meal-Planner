@@ -78,4 +78,11 @@ public class Ingredient {
     public int hashCode() {
         return Objects.hash(ingredientName, ingredientId, caloriesPerGram, proteinsPerGram, fatsPerGram, carbohydratesPerGram);
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "ingredientName='" + ingredientName + '\'' +
+                '}';
+    }
 }
