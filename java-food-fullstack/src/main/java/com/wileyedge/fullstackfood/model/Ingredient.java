@@ -83,6 +83,6 @@ public class Ingredient {
     public String toString() {
         return "Ingredient{" +
                 "ingredientName='" + ingredientName + '\'' +
-                '}';
+                '}' +  ", quantityRatioOfIngredient";
     }
 }
