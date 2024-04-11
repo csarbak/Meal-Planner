@@ -5,6 +5,8 @@ import com.wileyedge.fullstackfood.model.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,6 +40,18 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient addNewIngredient(Ingredient ingredient) {
         if (ingredient.getIngredientName().isBlank()) {
             ingredient.setIngredientName("Name blank, ingredient NOT added");
+        }
+        else if (ingredient.getCaloriesPerGram() == null) {
+            ingredient.setCaloriesPerGram(new BigDecimal(-1));
+        }
+        else if (ingredient.getCarbohydratesPerGram() == null) {
+            ingredient.setCarbohydratesPerGram(new BigDecimal(-1));
+        }
+        else if (ingredient.getFatsPerGram() == null) {
+            ingredient.setFatsPerGram(new BigDecimal(-1));
+        }
+        else if (ingredient.getProteinsPerGram() == null) {
+            ingredient.setProteinsPerGram(new BigDecimal(-1));
         }
         return ingredientDao.createNewIngredient(ingredient);
     }
