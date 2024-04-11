@@ -32,10 +32,10 @@ public class IngredientDaoImplTests {
     public void addNewIngredientTest() {
         Ingredient ingredient = new Ingredient();
         ingredient.setIngredientName("New Ingredient");
-        ingredient.setCaloriesPerGram(new BigDecimal(9.69));
-        ingredient.setProteinsPerGram(new BigDecimal(0.50));
-        ingredient.setFatsPerGram(new BigDecimal(0.03));
-        ingredient.setCarbohydratesPerGram(new BigDecimal(0.73));
+        ingredient.setCaloriesPerGram(new BigDecimal("9.69"));
+        ingredient.setProteinsPerGram(new BigDecimal("0.50"));
+        ingredient.setFatsPerGram(new BigDecimal("0.03"));
+        ingredient.setCarbohydratesPerGram(new BigDecimal("0.73"));
         ingredientDao.createNewIngredient(ingredient);
         List<Ingredient> newList = ingredientDao.getAllIngredients();
         assertNotNull(newList);
