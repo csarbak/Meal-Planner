@@ -2,6 +2,7 @@ package com.wileyedge.fullstackfood.dao;
 
 import com.wileyedge.fullstackfood.dao.mappers.IngredientMapper;
 import com.wileyedge.fullstackfood.model.Ingredient;
+import com.wileyedge.fullstackfood.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -95,11 +97,6 @@ public class IngredientDaoImpl implements IngredientDao {
         jdbcTemplate.update(sql, id);
     }
 
-    @Override
-    public void addIngredientToMeal(int ingredientId, int mealId) {
-        final String sql = "INSERT INTO meal_ingredient (mealId, ingredientId) VALUES (?, ?)";
-        jdbcTemplate.update(sql, mealId, ingredientId);
-    }
 
     @Override
     public void deleteIngredientFromMeal(int ingredientId) {

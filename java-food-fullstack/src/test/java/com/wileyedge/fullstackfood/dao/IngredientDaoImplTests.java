@@ -1,6 +1,7 @@
 package com.wileyedge.fullstackfood.dao;
 
 import com.wileyedge.fullstackfood.model.Ingredient;
+import com.wileyedge.fullstackfood.model.Meal;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -96,9 +99,5 @@ public class IngredientDaoImplTests {
         assertNotNull(ingredientDao.getAllIngredients());
         assertEquals(34, ingredientDao.getAllIngredients().size());
     }
-
-
-
-
 
 }

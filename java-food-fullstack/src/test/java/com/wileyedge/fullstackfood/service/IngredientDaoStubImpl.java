@@ -2,7 +2,9 @@ package com.wileyedge.fullstackfood.service;
 
 import com.wileyedge.fullstackfood.dao.IngredientDao;
 import com.wileyedge.fullstackfood.model.Ingredient;
+import com.wileyedge.fullstackfood.model.Meal;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class IngredientDaoStubImpl implements IngredientDao {
@@ -30,11 +32,6 @@ public class IngredientDaoStubImpl implements IngredientDao {
 
     @Override
     public void deleteIngredient(int id) {
-
-    }
-
-    @Override
-    public void addIngredientToMeal(int IngredientId, int courseId) {
 
     }
 
