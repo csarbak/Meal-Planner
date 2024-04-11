@@ -38,6 +38,7 @@ public class MealDaoImpl implements MealDao {
 
         int newId = jdbcTemplate.queryForObject("SELECT LASTVAL()", Integer.class);
         meal.setMealId(newId);
+
         insertMealIngredient(meal);
 
         meal.setTotalFats(calculateTotalFats(meal.getMealId()));
@@ -82,7 +83,8 @@ public class MealDaoImpl implements MealDao {
             return meal;
 
         } catch(DataAccessException ex) {
-            return null;
+
+            throw ex;
         }
     }
 

@@ -39,8 +39,11 @@ public class MealServiceImpl implements MealService {
             meal.setMealDesc("Name blank, meal NOT added");
 
         }
-        else if (meal.getMealDesc().isBlank()) {
+        if (meal.getMealDesc().isBlank()) {
             meal.setMealDesc("Description blank, meal NOT added");
+        }
+        if (meal.getUserId() == 0) {
+            meal.setUserId(-1);
         }
         return mealDao.addNewMeal(meal);
     }
