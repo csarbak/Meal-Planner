@@ -1,6 +1,7 @@
 package com.wileyedge.fullstackfood.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Ingredient {
 
@@ -65,6 +66,16 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return ingredientId == that.ingredientId && Objects.equals(ingredientName, that.ingredientName) && Objects.equals(caloriesPerGram, that.caloriesPerGram) && Objects.equals(proteinsPerGram, that.proteinsPerGram) && Objects.equals(fatsPerGram, that.fatsPerGram) && Objects.equals(carbohydratesPerGram, that.carbohydratesPerGram);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(ingredientName, ingredientId, caloriesPerGram, proteinsPerGram, fatsPerGram, carbohydratesPerGram);
+    }
 }
