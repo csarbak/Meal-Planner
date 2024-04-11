@@ -1,7 +1,7 @@
 package com.wileyedge.fullstackfood.controller;
 
 import com.wileyedge.fullstackfood.model.Ingredient;
-import com.wileyedge.fullstackfood.service.IngredientServiceImpl;
+import com.wileyedge.fullstackfood.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class IngredientController {
 
     @Autowired
-    IngredientServiceImpl ingredientService;
+    IngredientService ingredientService;
 
     @GetMapping("/ingredients")
     List<Ingredient> getAllIngredients() {

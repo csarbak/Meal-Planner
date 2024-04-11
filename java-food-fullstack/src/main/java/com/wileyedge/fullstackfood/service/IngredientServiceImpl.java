@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IngredientServiceImpl implements IngredientServiceInterface {
+public class IngredientServiceImpl implements IngredientService {
 
     @Autowired
     IngredientDao ingredientDao;

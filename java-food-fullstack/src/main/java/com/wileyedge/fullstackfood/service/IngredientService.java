@@ -4,7 +4,7 @@ import com.wileyedge.fullstackfood.model.Ingredient;
 
 import java.util.List;
 
-public interface IngredientServiceInterface {
+public interface IngredientService {
     List<Ingredient> getAllIngredients();
 
     Ingredient getIngredientById(int id);
