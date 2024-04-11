@@ -1,9 +1,7 @@
 package com.wileyedge.fullstackfood.dao;
 
 import com.wileyedge.fullstackfood.model.Ingredient;
-import com.wileyedge.fullstackfood.model.Meal;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface IngredientDao {
