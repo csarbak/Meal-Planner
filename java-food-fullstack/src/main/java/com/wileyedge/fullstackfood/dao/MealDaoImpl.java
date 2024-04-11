@@ -189,7 +189,7 @@ public class MealDaoImpl implements MealDao {
         BigDecimal totalCarbohydrates = new BigDecimal("0");
 
         for(Ingredient ingredient : mealIngredient.keySet()) {
-            totalCarbohydrates = totalCarbohydrates.add(ingredient.getCaloriesPerGram().multiply(mealIngredient.get(ingredient)));
+            totalCarbohydrates = totalCarbohydrates.add(ingredient.getCarbohydratesPerGram().multiply(mealIngredient.get(ingredient)));
 
         }
         return totalCarbohydrates;
