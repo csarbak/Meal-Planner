@@ -3,6 +3,7 @@ package com.wileyedge.fullstackfood.controller;
 import com.wileyedge.fullstackfood.model.Meal;
 import com.wileyedge.fullstackfood.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class MealController {
     }
 
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public Meal addNewMeal(@RequestBody Meal meal) {
         return mealService.addNewMeal(meal);
     }
