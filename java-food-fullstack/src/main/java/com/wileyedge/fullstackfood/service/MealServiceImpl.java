@@ -1,10 +1,14 @@
 package com.wileyedge.fullstackfood.service;
 
 import com.wileyedge.fullstackfood.dao.MealDao;
+import com.wileyedge.fullstackfood.model.Ingredient;
 import com.wileyedge.fullstackfood.model.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -44,6 +48,11 @@ public class MealServiceImpl implements MealService {
         }
         if (meal.getUserId() == 0) {
             meal.setUserId(-1);
+        }
+        if (meal.getIngredients().isEmpty()) {
+            HashMap<Ingredient, BigDecimal> empty = new HashMap<>();
+            empty.put(null, new BigDecimal(0));
+            meal.setIngredients(empty);
         }
         return mealDao.addNewMeal(meal);
     }
