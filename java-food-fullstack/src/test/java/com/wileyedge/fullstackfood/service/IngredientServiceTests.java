@@ -36,7 +36,7 @@ public class IngredientServiceTests {
 
     @Test
     @DisplayName("Update Ingredient Service Test")
-    public void updateCourseServiceTest() {
+    public void updateIngredientServiceTest() {
         Ingredient ingredient = new Ingredient();
         ingredient.setIngredientId(100);
         ingredient.setIngredientName("Updated Ingredient Name");
