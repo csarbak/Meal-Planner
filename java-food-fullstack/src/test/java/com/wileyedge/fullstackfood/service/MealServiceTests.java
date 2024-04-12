@@ -7,6 +7,7 @@ import com.wileyedge.fullstackfood.model.Meal;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -47,7 +48,8 @@ public class MealServiceTests {
         meal.setMealDesc("Updated Meal Desc");
         meal.setUserId(13);
 
-        Meal updatedMeal = mealService.updateMealData(216, meal);
+        mealService.updateMealData(216, meal);
+        Meal updatedMeal;
         updatedMeal = mealService.getMealById(216);
         assertNotNull(updatedMeal);
         assertEquals(216, updatedMeal.getMealId());
@@ -73,9 +75,15 @@ public class MealServiceTests {
     @Test
     @DisplayName("Add Meal Service Test")
     public void addMealServiceTest() {
+        Ingredient ingredient = new Ingredient();
+        ingredient.setIngredientName("New Ingredient Name");
         Meal meal = new Meal();
         meal.setMealName("New Meal Name");
         meal.setMealDesc("New Meal Desc");
+        meal.setMealId(3);
+        HashMap<Ingredient, BigDecimal> ingredients = new HashMap<>();
+        ingredients.put(ingredient, new BigDecimal("0.5"));
+        meal.setIngredients(ingredients);
         Meal newMeal = mealService.addNewMeal(meal);
         assertNotNull(newMeal);
         assertEquals("New Meal Name", newMeal.getMealName());
@@ -89,7 +97,7 @@ public class MealServiceTests {
         meal.setMealName("");
         meal.setMealDesc("");
         meal.setUserId(0);
-        meal.setIngredients(new HashMap<Ingredient, BigDecimal>());
+        meal.setIngredients(new HashMap<>());
         mealService.addNewMeal(meal);
         assertEquals("Name blank, meal NOT added", meal.getMealName());
         assertEquals("Description blank, meal NOT added", meal.getMealDesc());
